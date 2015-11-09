@@ -12,7 +12,7 @@ define [
 ], ($, _, Backbone, Router, Session, ContactsView, LoginView, SprintsView) ->
   class Application
     @defaults = 
-      api_endpoint: "http://127.0.0.1:3000/api"
+      api_endpoint: "http://127.0.0.1:3000/api/v1"
 
     constructor: (options = {}) ->
       @router = null
@@ -26,9 +26,10 @@ define [
     _initConfiguration: ->
       self = this
 
-      $.ajaxPrefilter((options, originalOptions, jqXHR) ->
-        options.url = "#{self.options.api_endpoint}/#{options.url}"
-      )
+      $.ajaxPrefilter \ 
+        (options, originalOptions, jqXHR) ->
+          options.url = "#{self.options.api_endpoint}/#{options.url}"
+          no
 
     _initRoutes: ->
       @router = new Router()
@@ -54,7 +55,7 @@ define [
         self.checkAuth()
 
       # Check if user already logined
-      Session.getAuth(callback)
+      Session.getAuth()
 
     checkAuth: ->
       if Session.get('auth') is true

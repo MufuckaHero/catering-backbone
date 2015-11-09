@@ -1,50 +1,63 @@
 define [
-  'underscore'
+  'jquery'
   'backbone'
-], (_, Backbone) ->
-  'use strict';
-
-  class SessionModel extends Backbone.Model
+  'router'
+], ($, Backbone, Router) ->
+  SessionModel = Backbone.Model.extend(
     url: '/sessions'
+    initialize: ->
 
-    initialize: () ->
       self = this
-      
-      $.ajaxPrefilter( (options, originalOptions, jqXHR) ->
-        options.xhrFields =
-          withCredentials: true
-        
-        if self.get('auth_token')?
-          jqXHR.setRequestHeader('X-Auth-Token', self.get('auth_token'))
-      )
+      $.ajaxSetup({
+        'beforeSend': (xhr) ->
+          xhr.setRequestHeader("accept", "application/json")
+      })
 
-    defaults: {}
+      $.ajaxPrefilter( (options, originalOptions, jqXHR) ->
+
+        if self.get('token')?
+          jqXHR.setRequestHeader('X-Auth-Token', self.get('token'))
+      )
 
     login: (params) ->
-      this.save(params, 
-        success: (model, response) ->
-          console.log model
-        error: (model, response) ->
-          console.log model, response
-      )
-
-      # Just for testing
-      this.set({auth: true, auth_token: 'test', name: 'Ivan Dron'})
-
-    logout: (params) ->
       self = this
 
-      this.destroy(
-        success: (model, response) ->
-          model.clear()
-          model.id = null
-
-          self.set({auth: false, auth_token: null, name: null})
-      )
-
-    getAuth: (callback) ->
       this.fetch(
-        success: callback
+        data: params,
+        dataType: 'json',
+        type: 'POST'
+        success: (model, xhr, options) ->
+          #console.log('Success')
+          #console.log(model)
+          sessionStorage.setItem('token', model.get('token'))
+        error: (model, xhr, options) ->
+          console.log('Error')
+          console.log(options)
+          console.log(xhr)
       )
+      return
 
-  return new SessionModel()
+    logout: ->
+      self = this
+      _logout = $.ajax(
+        url: @url
+        type: 'DELETE'
+        success:(res) ->
+          self.clear()
+          self.id = null
+          sessionStorage.removeItem('token')
+          console.log("success logout")
+          console.log(res)
+        error: (res) ->
+          console.log("error in logout")
+          console.log(res)
+      )
+      return
+
+    getAuth: ->
+      self = this
+      if (sessionStorage.getItem('token'))
+        _token = sessionStorage.getItem('token')
+        self.set({ auth: true, token: _token})
+  )
+  new SessionModel
