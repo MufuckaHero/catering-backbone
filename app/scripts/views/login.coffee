@@ -21,7 +21,6 @@ define [
       @$el.html @template()
 
     submit: (event) ->
-      $('[type=submit]', event.currentTarget).val('Loading...').prop('disabled', true)
       _params = $(event.currentTarget).serialize()
       this.undelegateEvents()
       Session.login(_params)

@@ -4,9 +4,9 @@ define [
   'router'
 ], ($, Backbone, Router) ->
   SessionModel = Backbone.Model.extend(
-    url: '/sessions'
-    initialize: ->
+    url: '/sessions.json'
 
+    initialize: ->
       self = this
       $.ajaxSetup({
         'beforeSend': (xhr) ->
@@ -57,7 +57,7 @@ define [
     getAuth: ->
       self = this
       if (sessionStorage.getItem('token'))
-        _token = sessionStorage.getItem('token')
-        self.set({ auth: true, token: _token})
+        token = sessionStorage.getItem('token')
+        self.set({ auth: true, token: token})
   )
   new SessionModel
