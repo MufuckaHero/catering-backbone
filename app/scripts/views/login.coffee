@@ -21,9 +21,9 @@ define [
       @$el.html @template()
 
     submit: (event) ->
-      _params = $(event.currentTarget).serialize()
+      params = $(event.currentTarget).serialize()
       this.undelegateEvents()
-      Session.login(_params)
+      Session.login(params)
 
       return false
 

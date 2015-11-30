@@ -1,7 +1,13 @@
 <div id="user_panel"></div>
-
-<p>Sprints</p>
-
-Test
-
-
+<p>
+  {{#each sprint}} 
+    <p>
+      <a href="/#sprints/{{id}}">
+        {{title}}
+      </a>
+    </p>
+    <p>{{started_at}}</p>
+    <p>{{finished_at}}</p>
+    <p>{{aasm_state}}</p>
+  {{/each}}
+</p>

@@ -4,14 +4,10 @@ define [
   'router'
 ], ($, Backbone, Router) ->
   SessionModel = Backbone.Model.extend(
-    url: '/sessions.json'
+    url: '/sessions'
 
     initialize: ->
       self = this
-      $.ajaxSetup({
-        'beforeSend': (xhr) ->
-          xhr.setRequestHeader("accept", "application/json")
-      })
 
       $.ajaxPrefilter( (options, originalOptions, jqXHR) ->
 

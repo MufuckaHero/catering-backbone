@@ -6,3 +6,4 @@ define [
       "sessions/new": "login"
       "contacts": "contacts"
       "sprints": "sprints"
+      "sprints/:id": "one_sprint"

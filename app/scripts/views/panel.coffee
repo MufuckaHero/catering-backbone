@@ -20,3 +20,5 @@ define [
     logout: (event) ->
       $(event.currentTarget).text('Loading ...').prop('disabled', true)
       Session.logout()
+
+  return PanelView

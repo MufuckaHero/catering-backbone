@@ -4,15 +4,19 @@ define [
   'backbone',
   'router',
 
-  'models/session'
+  'models/session',
+  'models/sprint',
+
+  'collections/sprints',
 
   'views/contacts',
   'views/login',
   'views/sprints'
-], ($, _, Backbone, Router, Session, ContactsView, LoginView, SprintsView) ->
+  'views/one_sprint'
+], ($, _, Backbone, Router, Session, Sprint, SprintsCollection, ContactsView, LoginView, SprintsView, OneSprintView) ->
   class Application
     @defaults = 
-      api_endpoint: "http://127.0.0.1:3000/api/v1"
+      api_endpoint: "http://localhost:3000/api/v1"
 
     constructor: (options = {}) ->
       @router = null
@@ -26,10 +30,15 @@ define [
     _initConfiguration: ->
       self = this
 
-      $.ajaxPrefilter \ 
+      $.ajaxPrefilter \
         (options, originalOptions, jqXHR) ->
-          options.url = "#{self.options.api_endpoint}/#{options.url}"
+          options.url = "#{self.options.api_endpoint}#{options.url}"
           no
+          
+      $.ajaxSetup({
+        'beforeSend': (xhr) ->
+          xhr.setRequestHeader("Accept", "application/json")
+      })
 
     _initRoutes: ->
       @router = new Router()
@@ -44,6 +53,10 @@ define [
 
       @router.on 'route:sprints', (page) ->
         _view = new SprintsView()
+        _view.render()
+
+      @router.on 'route:one_sprint', (id) ->
+        _view = new OneSprintView(id: id)
         _view.render()
 
       Backbone.history.start()
