@@ -26,6 +26,12 @@ module.exports = function (grunt) {
     };
 
     grunt.initConfig({
+        assemble: {
+          options: {
+            // Assemble will automatically resolve the path 
+            helpers: ['handlebars-helper-moment', 'foo/*.js']
+          }
+        },
         yeoman: yeomanConfig,
         watch: {
             options: {
@@ -58,6 +64,12 @@ module.exports = function (grunt) {
                 ]
             },
             handlebars: {
+                assemble: {
+                  options: {
+                  // Assemble will automatically resolve the path 
+                    helpers: ['handlebars-helper-moment', 'foo/*.js']
+                  }
+                },
                 files: [
                     '<%= yeoman.app %>/scripts/templates/*.hbs'
                 ],
@@ -397,4 +409,6 @@ module.exports = function (grunt) {
         'test',
         'build'
     ]);
+
+    grunt.loadNpmTasks('assemble');
 };

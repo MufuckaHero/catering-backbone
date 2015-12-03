@@ -3,6 +3,7 @@ define [
   'underscore',
   'backbone',
   'router',
+  'moment',
 
   'models/session',
   'models/sprint',
@@ -13,7 +14,7 @@ define [
   'views/login',
   'views/sprints'
   'views/one_sprint'
-], ($, _, Backbone, Router, Session, Sprint, SprintsCollection, ContactsView, LoginView, SprintsView, OneSprintView) ->
+], ($, _, Backbone, Router, moment, Session, Sprint, SprintsCollection, ContactsView, LoginView, SprintsView, OneSprintView) ->
   class Application
     @defaults = 
       api_endpoint: "http://localhost:3000/api/v1"

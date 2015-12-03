@@ -7,13 +7,16 @@ define [
   'models/sprint'
 
   'views/panel'
-], ($, _, Backbone, JST, SprintModel, PanelView) ->
+  'views/daily_menus'
+], ($, _, Backbone, JST, SprintModel , PanelView, DailyMenusView) ->
   class OneSprintView extends Backbone.View
     template: JST['app/scripts/templates/one_sprint.hbs']
 
     el: '#container'
 
     panel: new PanelView()
+
+    menus: new DailyMenusView()
 
     events: {}
 
@@ -28,9 +31,11 @@ define [
       )
       
       @panel.$el = @$('#user_panel')
+      @menus.$el = @$('#menus')
       @panel.render()
       @panel.delegateEvents()
-
+      @menus.render()
+      @menus.delegateEvents()
 
   return OneSprintView
      

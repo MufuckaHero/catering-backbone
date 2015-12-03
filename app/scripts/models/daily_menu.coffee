@@ -4,12 +4,11 @@ define [
   'router'
 ], ($, Backbone, Router) ->
 
-  DailyMenu = Backbone.Model.extend(
-    url: -> 
-      '/sprints/' + @id
-
-    initialize: (options) ->
-      @id = options.id
+  DailyMenuModel = Backbone.Model.extend(
+    url: '/daily_menus' 
+ 
+    initialize: ->
+     
   )
     
-  return DailyMenu
+  return DailyMenuModel

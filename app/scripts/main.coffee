@@ -8,6 +8,8 @@ require.config
       exports: 'jquery'
     handlebars:
       exports: 'Handlebars'
+    moment:
+      exports: 'moment'
   }
   paths:
     jquery: '../bower_components/jquery/dist/jquery'
@@ -16,6 +18,7 @@ require.config
     bootstrap: '../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap'
     handlebars: '../bower_components/handlebars/handlebars'
     router: 'routes/catering'
+    moment: '../bower_components/moment/moment'
 
 require [
   'backbone',

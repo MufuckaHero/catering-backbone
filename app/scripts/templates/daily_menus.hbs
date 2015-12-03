@@ -1,0 +1,23 @@
+<div class="btn-group btn-group-justified" role="group" aria-label="...">
+  {{#each daily_menus}}
+    <div class="btn-group" role="group">   
+      <button type="button" class="btn btn-default" rel="{{day_number}}" >{{day_number}}</button>
+    </div>
+  {{/each}}
+</div>
+
+<p>
+  {{#each daily_menus}} 
+    <p>
+      <a href="/#daily_menus/{{id}}">
+        {{day_number}}
+      </a>
+    </p>
+    <p>{{max_total}}</p>
+    <p>{{dish_ids}}</p>
+    {{#each dishes}} 
+      <p>{{title}}</p>
+      <p>{{category}}</p>
+    {{/each}}
+  {{/each}}
+</p>

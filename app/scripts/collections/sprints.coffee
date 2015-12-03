@@ -3,9 +3,10 @@ define [
   'underscore'
   'backbone'
   'router'
+  'moment'
 
   'models/sprint'
-], ($, _, Backbone, Router, SprintModel) ->
+], ($, _, Backbone, Router, moment, SprintModel) ->
   SprintsCollection = Backbone.Collection.extend(
     url: -> 
       '/sprints' 
@@ -17,6 +18,7 @@ define [
         type: 'GET',
         reset: true 
       ) 
+      
   )
 
   return SprintsCollection

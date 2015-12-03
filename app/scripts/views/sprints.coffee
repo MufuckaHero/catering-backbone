@@ -5,11 +5,11 @@ define [
   'templates'
 
   'collections/sprints'
-  'models/sprint'
 
+   'moment'
+ 
   'views/panel'
-  'views/one_sprint'
-], ($, _, Backbone, JST, SprintsCollection, SprintModel, PanelView, OneSprintView) ->
+], ($, _, Backbone, JST, SprintsCollection, moment, PanelView) ->
   class SprintsView extends Backbone.View
     template: JST['app/scripts/templates/sprints.hbs']
 
@@ -26,10 +26,11 @@ define [
       this.sprint.on('sync', this.render, this);  
 
     render: () ->
+
       @$el.html @template(
         sprint: @sprint.toJSON()
       )
-     
+
       @panel.$el = @$('#user_panel')
       @panel.render()
       @panel.delegateEvents()
